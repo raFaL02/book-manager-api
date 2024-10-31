@@ -1,4 +1,4 @@
-package com.codecraft.book_manager_api.controller;
+package com.codecraft.book_manager_api.controllers;
 
 import com.codecraft.book_manager_api.domain.author.Author;
 import com.codecraft.book_manager_api.domain.book.Book;
