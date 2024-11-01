@@ -1,9 +1,7 @@
 package com.codecraft.book_manager_api.controllers;
 
-import com.codecraft.book_manager_api.domain.author.Author;
 import com.codecraft.book_manager_api.domain.book.Book;
-import com.codecraft.book_manager_api.repositories.AuthorsRepository;
-import com.codecraft.book_manager_api.repositories.BooksRepository;
+import com.codecraft.book_manager_api.services.BooksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,50 +13,35 @@ import java.util.UUID;
 public class BooksController {
 
     @Autowired
-    private BooksRepository booksRepository;
-
-    @Autowired
-    private AuthorsRepository authorsRepository;
+    private BooksService booksService;
 
     @GetMapping
     public List<Book> getAllBooks() {
-        return booksRepository.findAll();
+        return booksService.getAllBooks();
     }
 
     @PostMapping
     public Book createBook(@RequestBody Book book) {
-        return booksRepository.save(book);
+        return booksService.createBook(book);
     }
 
     @GetMapping("/{id}")
     public Book getBookById(@PathVariable UUID id) {
-        return booksRepository.findById(id).orElse(null);
+        return booksService.getBookById(id);
     }
 
     @PutMapping("/{id}")
     public Book updateBook(@PathVariable UUID id, @RequestBody Book bookDetails) {
-        return booksRepository.findById(id).map(book -> {
-            book.setTitle(bookDetails.getTitle());
-            book.setIsbn(bookDetails.getIsbn());
-            book.setGeneres(bookDetails.getGeneres());
-            book.setPublishDate(bookDetails.getPublishDate());
-            return booksRepository.save(book);
-        }).orElse(null);
+        return booksService.updateBook(id, bookDetails);
     }
 
     @DeleteMapping("/{id}")
     public void deleteBook(@PathVariable UUID id) {
-        booksRepository.deleteById(id);
+        booksService.deleteBook(id);
     }
 
     @PostMapping("/{bookId}/authors/{authorId}")
     public Book addAuthorToBook(@PathVariable UUID bookId, @PathVariable UUID authorId) {
-        Book book = booksRepository.findById(bookId).orElse(null);
-        Author author = authorsRepository.findById(authorId).orElse(null);
-        if (book != null && author != null) {
-            book.getAuthors().add(author);
-            return booksRepository.save(book);
-        }
-        return null;
+        return booksService.addAuthorToBook(bookId, authorId);
     }
 }
