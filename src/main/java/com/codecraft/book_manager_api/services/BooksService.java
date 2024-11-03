@@ -35,7 +35,7 @@ public class BooksService {
         return booksRepository.findById(id).map(book -> {
             book.setTitle(bookDetails.getTitle());
             book.setIsbn(bookDetails.getIsbn());
-            book.setGeneres(bookDetails.getGeneres());
+            book.setGenres(bookDetails.getGenres());
             book.setPublishDate(bookDetails.getPublishDate());
             return booksRepository.save(book);
         }).orElse(null);
