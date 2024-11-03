@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/authors")
-public class AuthorsCotroller {
+public class AuthorsController {
 
     @Autowired
     private AuthorsService authorsService;
