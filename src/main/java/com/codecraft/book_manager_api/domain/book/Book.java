@@ -7,9 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Table(name = "books")
 @Entity
@@ -25,12 +23,12 @@ public class Book {
 
     private String title;
     private String isbn;
-    private String generes;
+    private String genres;
     private Date publishDate;
 
     @ManyToMany
     @JoinTable(
-            name = "authors",
+            name = "books_authors",
             joinColumns = @JoinColumn(name = "books_id"),
             inverseJoinColumns = @JoinColumn(name = "authors_id")
             )
