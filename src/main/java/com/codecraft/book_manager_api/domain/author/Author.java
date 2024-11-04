@@ -13,7 +13,8 @@ import java.util.UUID;
 @Table(name = "authors")
 @Entity
 @Getter
-@Setter@NoArgsConstructor
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class Author {
 
